@@ -22,12 +22,9 @@ Make install and follow the manual:
 Step for installing:
 * [Ceedling](http://www.throwtheswitch.org/ceedling/) - The framework used
 * Download repo and follow the manual:
-    Install python3:
-        sudo apt-get install python3
-    Install pip3
-        sudo pip3 install urwid
-    Install urwid package
-        pip install urwid   
+   + Install python3: sudo apt-get install python3
+   + Install pip3: sudo pip3 install urwid
+   + Install urwid package: pip3 install urwid   
 
 ## Running the tests
 
@@ -47,13 +44,11 @@ TODO
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+TODO
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+TODO
 
 ## Versioning
 
@@ -63,7 +58,9 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Please read [LICENSE.md]() for details on our code of conduct, and the process for submitting pull requests to us.
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](https://github.com/RewardingAccomplishment/python_scripts/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
