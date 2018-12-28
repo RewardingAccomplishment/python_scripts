@@ -21,6 +21,7 @@ Make install and follow the manual:
 
 Step for installing:
 * [Ceedling](http://www.throwtheswitch.org/ceedling/) - The framework used
+   + gem install ceedling
 * Download repo and follow the manual:
    + Install python3: sudo apt-get install python3
    + Install pip3: sudo pip3 install urwid
@@ -28,7 +29,181 @@ Step for installing:
 
 ## Running the tests
 
-TODO
+New project:
+Run ./build.py script then Files -> New Project -> (type the project name) -> arrow down -> press enter to confirm.
+
+Console output:
+ > $ ./build.py 
+ > Welcome to Ceedling!
+ >       create  demo/vendor/ceedling/docs/CeedlingPacket.md
+ >       create  demo/vendor/ceedling/docs/CException.md
+ >       create  demo/vendor/ceedling/docs/CMock_Summary.md
+ > ...
+ >    create  demo/vendor/ceedling/vendor/unity/src/unity_internals.h
+ >       create  demo/project.yml
+ >       create  demo/ceedling
+ > 
+ > Project 'demo' created!
+ >  - Tool documentation is located in vendor/ceedling/docs
+ >  - Execute 'ceedling help' to view available test & build tasks
+
+New module: 
+Please go to the created project _project_name_ and run _path_to_script_/build.py.
+Then Files -> New Module -> (type the module name) -> arrow down -> press enter to confirm.
+
+Console output:
+ > $cd demo/
+ > $../build.py 
+ > File src/TestModule.c created
+ > File src/TestModule.h created
+ > File test/test_TestModule.c created
+ > Generate Complete
+
+Check:
+Run ./build.py script then Files -> New Project -> (type the project name) -> arrow down -> press enter to confirm.
+
+Console output:
+ > $ ../build.py 
+ > Starting test:all
+ > wait for boost or exit
+ > 
+ > 
+ > Test 'test_NewModulee.c'
+ > ------------------------
+ > Generating runner for test_NewModulee.c...
+ > Compiling test_NewModulee_runner.c...
+ > Compiling test_NewModulee.c...
+ > Compiling unity.c...
+ > Compiling NewModulee.c...
+ > Compiling cmock.c...
+ > Linking test_NewModulee.out...
+ > Running test_NewModulee.out...
+ > 
+ > 
+ > Test 'test_TestModule.c'
+ > ------------------------
+ > Generating runner for test_TestModule.c...
+ > Compiling test_TestModule_runner.c...
+ > Compiling test_TestModule.c...
+ > Compiling TestModule.c...
+ > Linking test_TestModule.out...
+ > Running test_TestModule.out...
+ > 
+ > --------------------
+ > IGNORED TEST SUMMARY
+ > --------------------
+ > [test_NewModulee.c]
+ >   Test: test_NewModulee_NeedToImplement
+ >   At line (14): "Need to Implement NewModulee"
+ > 
+ > [test_TestModule.c]
+ >   Test: test_TestModule_NeedToImplement
+ >   At line (14): "Need to Implement TestModule"
+ > 
+ > --------------------
+ > OVERALL TEST SUMMARY
+ > --------------------
+ > TESTED:  2
+ > PASSED:  0
+ > FAILED:  0
+ > IGNORED: 2
+ > 
+ > <-------->|<- delay time
+ > ----------
+ > 
+ > Test 'test_NewModulee.c'
+ > ------------------------
+ > Running test_NewModulee.out...
+ > 
+ > 
+ > Test 'test_TestModule.c'
+ > ------------------------
+ > Running test_TestModule.out...
+ > 
+ > --------------------
+ > IGNORED TEST SUMMARY
+ > --------------------
+ > [test_NewModulee.c]
+ >   Test: test_NewModulee_NeedToImplement
+ >   At line (14): "Need to Implement NewModulee"
+ > 
+ > [test_TestModule.c]
+ >   Test: test_TestModule_NeedToImplement
+ >   At line (14): "Need to Implement TestModule"
+ > 
+ > --------------------
+ > OVERALL TEST SUMMARY
+ > --------------------
+ > TESTED:  2
+ > PASSED:  0
+ > FAILED:  0
+ > IGNORED: 2
+ > 
+ > <-------->|<- delay time
+ > ----------
+ > 
+ > Test 'test_NewModulee.c'
+ > ------------------------
+ > Running test_NewModulee.out...
+ > 
+ > 
+ > Test 'test_TestModule.c'
+ > ------------------------
+ > Running test_TestModule.out...
+ > 
+ > --------------------
+ > IGNORED TEST SUMMARY
+ > --------------------
+ > [test_NewModulee.c]
+ >   Test: test_NewModulee_NeedToImplement
+ >   At line (14): "Need to Implement NewModulee"
+ > 
+ > [test_TestModule.c]
+ >   Test: test_TestModule_NeedToImplement
+ >   At line (14): "Need to Implement TestModule"
+ > 
+ > --------------------
+ > OVERALL TEST SUMMARY
+ > --------------------
+ > TESTED:  2
+ > PASSED:  0
+ > FAILED:  0
+ > IGNORED: 2
+ > 
+ > <-------->|<- delay time
+ > ----------
+ > 
+ > Test 'test_NewModulee.c'
+ > ------------------------
+ > Running test_NewModulee.out...
+ > 
+ > 
+ > Test 'test_TestModule.c'
+ > ------------------------
+ > Running test_TestModule.out...
+ > 
+ > --------------------
+ > IGNORED TEST SUMMARY
+ > --------------------
+ > [test_NewModulee.c]
+ >   Test: test_NewModulee_NeedToImplement
+ >   At line (14): "Need to Implement NewModulee"
+ > 
+ > [test_TestModule.c]
+ >   Test: test_TestModule_NeedToImplement
+ >   At line (14): "Need to Implement TestModule"
+ > 
+ > --------------------
+ > OVERALL TEST SUMMARY
+ > --------------------
+ > TESTED:  2
+ > PASSED:  0
+ > FAILED:  0
+ > IGNORED: 2
+ > 
+ > <-------->|<- delay time
+ > -------q
+ > 
 
 ### Break down into end to end tests
 

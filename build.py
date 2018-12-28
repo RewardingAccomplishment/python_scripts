@@ -16,6 +16,7 @@ import re
 """ TUI - Text User Interface """
 """--------------------------------------------------------------------------"""
 global current_cmd
+global str_cmd
 
 def menu_button(caption, callback):
     button = urwid.Button(caption)
@@ -36,18 +37,40 @@ def menu(title, choices):
 def item_chosen(button):
     global current_cmd
     current_cmd = button
-    try: 
+    try:
         details = action_cmd[ button.label ][2]
     except:
-        details = u'\n' 
+        details = u'\n'
     response = urwid.Text([u'You choose ', button.label, u': \n', details])
     done = menu_button(u'Ok', exit_program)
     top.open_box(urwid.Filler(urwid.Pile([response, done])))
 
+global edit
+def item_question(button):
+    global current_cmd
+    global edit
+
+    current_cmd = button
+    try:
+        details = action_cmd[ button.label ][2]
+    except:
+        details = u'\n'
+
+    edit = urwid.Edit([u'You choose ', button.label, u': \n', details, "\n"])
+    done = menu_button(u'Ok', answer)
+    top.open_box(urwid.Filler(urwid.Pile([edit, done])))
+
+def answer(name):
+    global edit
+    global str_cmd
+
+    str_cmd = edit.get_edit_text()
+    raise urwid.ExitMainLoop()
+
 def exit_program(button):
     raise urwid.ExitMainLoop()
 
-top_instruction = u'..::Ceedling Test Drive Development Automation::..' 
+top_instruction = u'..::Ceedling Test Drive Development Automation::..'
 menu_top = menu(top_instruction, [
     sub_menu(u'Test', [
         menu_button(u'TDD', item_chosen),
@@ -63,6 +86,8 @@ menu_top = menu(top_instruction, [
         menu_button(u'Clean hard', item_chosen),
     ]),
     sub_menu(u'Files', [
+        menu_button(u'New Project', item_question),
+        menu_button(u'New Module', item_question),
         menu_button(u'Assembly', item_chosen),
         menu_button(u'Header', item_chosen),
         menu_button(u'Source', item_chosen),
@@ -124,10 +149,10 @@ class TestSingleModule():
     def exit_program(self, button, tmp):
         self.cmd = 'ceedling test:{}'.format(button.label)
         raise urwid.ExitMainLoop()
-    
+
     def main(self):
         urwid.MainLoop(self.top, palette=[('reversed', 'standout', '')]).run()
-        print("Commend line: {}".format(self.cmd))
+        print("Command line: {}".format(self.cmd))
         os.system(self.run_cmd)
 
 """--------------------------------------------------------------------------"""
@@ -151,11 +176,25 @@ def tdd_loop(*args):
         command.put(1)                  # 1 boost
 
     command.put(0)                      # 0 exit thread before quit
-    t1.stop();
+    t1.stop()
 
 def os_cmd(*args):
     data = action_cmd[ args[0] ]
     os.system( data[1] )
+    return False
+
+def os_new(*args):
+    global str_cmd
+
+    data = action_cmd[ args[0] ]
+    if args[0] == 'New Project':
+        os.system("{} {}".format(data[1], str_cmd))
+    elif args[0] == 'New Module':
+        print("{}[{}]".format(data[1], str_cmd))
+        os.system("{}[{}]".format(data[1], str_cmd))
+    else:
+        os.system( data[1] )
+
     return False
 
 def single_module(*arg):
@@ -163,16 +202,16 @@ def single_module(*arg):
     proc = subprocess.Popen(["ceedling files:test"], stdout=subprocess.PIPE,
                             shell=True )
     (out, err) = proc.communicate()
-    
+
     pattern = 'test_.*?\.c'
     test_module_list = re.findall(pattern, str(out))
-   
+
     TestSingleModule(r'Test single module', test_module_list).main()
 
 
 #TODO logging, verbosity, create:module
 action_cmd = {
-    'TDD'        : [tdd_loop, "test:all", 
+    'TDD'        : [tdd_loop, "test:all",
                             "Run all unit tests (rebuilding anything that\'s"
                             "changed along the way). Running in the loop"],
     'All'        : [os_cmd, 'ceedling test:all',
@@ -184,7 +223,7 @@ action_cmd = {
     'TDD Delta'  : [tdd_loop, 'test:delta',
                             "Run only those unit tests for which the source or "
                             "test files have changed (i.e. incremental build)."],
-    'Single Module': [single_module, "none", 
+    'Single Module': [single_module, "none",
                             "Execute the named test file or the named source "
                             "file that has an accompanying test. No path. "],
     'Summary'    : [os_cmd, 'ceedling summary',
@@ -242,7 +281,13 @@ action_cmd = {
                             " task will only be available if assembly support is"
                             " enabled in the [:release_build] section of your "
                             "configuration file."],
-    'About'      : [os_cmd, "echo \" Best regards\"", 
+    'New Project': [os_new, 'ceedling new',
+                            "Allows you to generate the skeleton for starting a "
+                            "new project. Please type the project name..."],
+    'New Module' : [os_new, 'ceedling module:create',
+                            "Allows you to generate the module (source, header and test files) for starting a "
+                            "new module in the current project. Please type the module name..."],
+    'About'      : [os_cmd, "echo \" Best regards\"",
                             "Script for support Test-Driven-Development based on"
                             " ceedling. Text user interface based on Urwid library."
                             "\n \n TDD cycle: \n 1. Add a test \n 2. Run one of TDD option \n"
@@ -265,10 +310,7 @@ def main():
     main function
     """
     global current_cmd
-
     urwid.MainLoop(top, palette=[('reversed', 'standout', '')]).run()
-
-    print(current_cmd.label)
     do_action(current_cmd.label)
 
 if '__main__'==__name__:
