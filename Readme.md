@@ -2,13 +2,9 @@
 
 Small python scripts for debugging, logging, simple one-file applications. 
 
-#Scripts List
-build.py        Script for Test Driven Development
-                script make in loop ceedling test, it allows TDD with ceedling
-                for make compatible with python 3.x
-tdd_cmd.py      File contain class that invoke ceedling test in infinite loop.
-                File required for build.py script.
-
+# Scripts List
+* build.py        Script for Test Driven Development script make in loop ceedling test, it allows TDD with ceedling for make compatible with python 3.x
+* tdd_cmd.py      File contain class that invoke ceedling test in infinite loop. File required for build.py script.
 
 ## Getting Started
 
@@ -22,7 +18,7 @@ Step for installing:
 * Download repo and follow the manual:
    + Install python3: sudo apt-get install python3
    + Install pip3: sudo pip3 install urwid
-   + Install urwid package: pip3 install urwid   
+   + Install urwid package: pip3 install urwid
 
 ### Navigation
 
