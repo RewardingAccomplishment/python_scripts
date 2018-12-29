@@ -14,9 +14,6 @@ tdd_cmd.py      File contain class that invoke ceedling test in infinite loop.
 
 Make install and follow the manual:
 
-### Prerequisites
-
-
 ### Installing
 
 Step for installing:
@@ -26,6 +23,13 @@ Step for installing:
    + Install python3: sudo apt-get install python3
    + Install pip3: sudo pip3 install urwid
    + Install urwid package: pip3 install urwid   
+
+### Navigation
+
+Arrow up and down - navigate the menu,
+Enter             - confirm
+Esc               - return to previous menu
+q                 - close
 
 ## Running the tests
 
@@ -205,25 +209,9 @@ Console output:
  > -------q
  > 
 
-### Break down into end to end tests
-
-TODO
-
-### And coding style tests
-
-TODO
-
-## Deployment
-
-TODO
-
-## Built With
-
-TODO
-
 ## Contributing
 
-TODO
+If you want to contribute to a project and make it better, your help is very welcome. Please contact me directly if you have any questions.
 
 ## Versioning
 

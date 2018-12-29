@@ -45,6 +45,17 @@ def item_chosen(button):
     done = menu_button(u'Ok', exit_program)
     top.open_box(urwid.Filler(urwid.Pile([response, done])))
 
+def help_chosen(button):
+    global current_cmd
+    current_cmd = button
+    try:
+        details = action_cmd[ button.label ][2]
+    except:
+        details = u'\n'
+    response = urwid.Text([u'You choose ', button.label, u': \n', details])
+    done = menu_button(u'Exit program', exit_program)
+    top.open_box(urwid.Filler(urwid.Pile([response, done])))
+
 global edit
 def item_question(button):
     global current_cmd
@@ -96,8 +107,9 @@ menu_top = menu(top_instruction, [
     menu_button(u'Summary', item_chosen),
     sub_menu(u'Information', [
         menu_button(u'About', item_chosen),
-        menu_button(u'TODO 2', item_chosen),
+        menu_button(u'Help', help_chosen),
     ]),
+    menu_button(u'Exit', item_chosen),
 ])
 
 class CascadingBoxes(urwid.WidgetPlaceholder):
@@ -121,9 +133,14 @@ class CascadingBoxes(urwid.WidgetPlaceholder):
         self.box_level += 1
 
     def keypress(self, size, key):
+        global current_cmd
+
         if key == 'esc' and self.box_level > 1:
             self.original_widget = self.original_widget[0]
             self.box_level -= 1
+        elif key == 'q':
+            current_cmd = 'None'    #cause exeption that is handled (if exit)
+            raise urwid.ExitMainLoop()
         else:
             return super(CascadingBoxes, self).keypress(size, key)
 
@@ -293,7 +310,21 @@ action_cmd = {
                             "\n \n TDD cycle: \n 1. Add a test \n 2. Run one of TDD option \n"
                             " 3. Write code (test fail) \n 4. Write code (test pass)\n"
                             " 5. Refactor code and go to step 1.\n \n"
-                            "All code is copyright © 2018 M. Sosnowski"]
+                            "All code is copyright © 2018 M. Sosnowski"],
+    'Exit'       : [os_new, 'echo help menu closed',
+                            "Confirm to close."],
+    'Help'       : [os_new, 'echo bye bye',
+                            "\nNavigation: \n"
+                            "  Arrow up and down - navigate the menu,\n"
+                            "  Enter             - confirm\n"
+                            "  Esc               - return to previous menu\n"
+                            "  q                 - close\n\n"
+                            "License: \n"
+                            "  Please read for details on our code of "
+                            "conduct, and the process for submitting pull requests to us.\n"
+                            "This project is licensed under the GNU General Public License "
+                            "v3.0 \n\n"
+                            "Press esc to return to previous menu."]
 }
 
 def do_action(action):
@@ -311,7 +342,10 @@ def main():
     """
     global current_cmd
     urwid.MainLoop(top, palette=[('reversed', 'standout', '')]).run()
-    do_action(current_cmd.label)
+    try:
+        do_action(current_cmd.label)
+    except:
+        print("exit without action")
 
 if '__main__'==__name__:
      main()
