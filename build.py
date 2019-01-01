@@ -336,11 +336,23 @@ def do_action(action):
     except KeyError:
         print('Incorrect action name; action not found')
 
+def is_tool(name):
+    """Check whether `name` is on PATH and marked as executable."""
+
+    # from whichcraft import which
+    from shutil import which
+
+    return which(name) is not None
+
 def main():
     """
     main function
     """
     global current_cmd
+
+    if is_tool('ceedling') is False:
+        print("Please install {}: {}".format('ceedling', 'gem install ceedling'))
+        
     urwid.MainLoop(top, palette=[('reversed', 'standout', '')]).run()
     try:
         do_action(current_cmd.label)
